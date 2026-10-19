@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>PriceKhoj — Find a better price</title>
+<meta name="description" content="Search products across Indian shopping and grocery platforms in one place.">
+<style>
+:root{--bg:#0b1220;--panel:#111c2e;--panel2:#17243a;--text:#f4f7fb;--muted:#a8b5c9;--line:#26354d;--green:#9be15d;--mint:#42d6a4;--yellow:#ffd166}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#1b3650 0,transparent 50%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:0 20px}.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}.logo{font-size:1.35rem;font-weight:850;letter-spacing:-.7px}.logo span{color:var(--green)}.pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:.8rem}
+.hero{text-align:center;padding:54px 0 32px}.eyebrow{color:var(--green);font-weight:750;text-transform:uppercase;letter-spacing:1.8px;font-size:.76rem}.hero h1{font-size:clamp(2.2rem,6vw,4.3rem);line-height:1.04;letter-spacing:-2px;margin:15px 0}.hero h1 em{font-style:normal;color:var(--green)}.hero p{max-width:630px;margin:0 auto;color:var(--muted);font-size:1.05rem;line-height:1.7}
+.searchbox{display:flex;gap:10px;max-width:760px;margin:28px auto 12px;background:#fff;padding:7px;border-radius:17px;box-shadow:0 18px 55px #0005}.searchbox input{min-width:0;flex:1;border:0;outline:0;padding:14px 13px;font-size:1rem;color:#152033;background:transparent}.searchbox button{border:0;border-radius:12px;background:var(--green);color:#102018;font-weight:850;padding:0 24px;cursor:pointer;font-size:.98rem}.hint{font-size:.82rem;color:var(--muted)}
+.section{padding:34px 0}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:17px}.section h2{font-size:1.35rem;margin:0}.sectionhead p{margin:5px 0 0;color:var(--muted);font-size:.9rem}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0 20px}.chip{border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);padding:9px 13px;cursor:pointer;font-weight:650}.chip.active,.chip:hover{background:#1c352c;border-color:#437b58;color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;min-height:178px;transition:transform .15s,border-color .15s}.card:hover{transform:translateY(-2px);border-color:#47627e}.cardtop{display:flex;align-items:center;gap:12px}.icon{width:44px;height:44px;border-radius:13px;background:#26364b;display:grid;place-items:center;font-size:1.4rem;flex-shrink:0}.card h3{margin:0;font-size:1rem}.tag{font-size:.75rem;color:var(--muted);margin-top:4px}.card p{color:var(--muted);font-size:.86rem;line-height:1.5;margin:14px 0 17px;flex:1}.go{display:flex;justify-content:center;align-items:center;gap:8px;background:#20372e;color:#b8f3a0;text-decoration:none;border:1px solid #315640;border-radius:11px;padding:11px;font-weight:800;font-size:.9rem}.go:hover{background:#2b493b}
+.notice{display:flex;gap:12px;padding:16px;border-radius:14px;border:1px solid #65552b;background:#2a2518;color:#e8d8a8;line-height:1.55;font-size:.88rem;margin:12px 0 30px}.notice strong{color:#ffe39a}.howgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.step{border:1px solid var(--line);border-radius:15px;padding:17px;background:#101a2a}.step b{display:block;margin:8px 0}.step p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.5}.num{color:var(--green);font-size:1.25rem;font-weight:900}
+footer{border-top:1px solid var(--line);padding:25px 0 35px;color:var(--muted);font-size:.82rem;line-height:1.6}.footerrow{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.empty{display:none;text-align:center;color:var(--muted);padding:22px;border:1px dashed var(--line);border-radius:15px}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding-top:35px}.sectionhead{align-items:start;flex-direction:column}.howgrid{grid-template-columns:1fr}.card{padding:14px}.searchbox button{padding:0 16px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.wrap{padding:0 15px}.hero h1{letter-spacing:-1.3px}.searchbox{gap:4px}.searchbox input{padding:12px 9px}.searchbox button{padding:0 13px}.pill{font-size:.72rem}}
+</style>
+</head>
+<body>
+<header class="wrap nav">
+  <div class="logo">Price<span>Khoj</span> <small style="font-size:.7rem;color:#a8b5c9;font-weight:600">INDIA</small></div>
+  <div class="pill">Free price-search hub</div>
+</header>
+<main>
+<section class="wrap hero">
+  <div class="eyebrow">Spend smart. Save more.</div>
+  <h1>One search.<br><em>Better prices.</em></h1>
+  <p>Search Indian shopping sites from one place. Start with groceries and daily essentials, or compare electronics, fashion and more.</p>
+  <form class="searchbox" id="searchForm">
+    <input id="productInput" type="search" placeholder="Try: oats 1 kg, iPhone, detergent…" aria-label="Product name" autocomplete="off">
+    <button type="submit">Find prices ↗</button>
+  </form>
+  <div class="hint">Enter a product, then open the matching store search to check its current price.</div>
+</section>
+<section class="wrap section" id="stores">
+  <div class="sectionhead"><div><h2 id="resultsTitle">Shop by store</h2><p id="resultsSubtitle">Grocery-first, with more categories included.</p></div></div>
+  <div class="chips" role="group" aria-label="Filter stores by category">
+    <button class="chip active" data-filter="all">All stores</button>
+    <button class="chip" data-filter="grocery">🥦 Grocery first</button>
+    <button class="chip" data-filter="electronics">📱 Electronics</button>
+    <button class="chip" data-filter="fashion">👕 Fashion</button>
+    <button class="chip" data-filter="general">🛍️ General shopping</button>
+  </div>
+  <div class="grid" id="storeGrid">
+    <article class="card" data-category="grocery" data-name="Blinkit"><div class="cardtop"><div class="icon">⚡</div><div><h3>Blinkit</h3><div class="tag">Quick grocery delivery</div></div></div><p>Check availability and current prices for groceries and everyday essentials.</p><a class="go store-link" data-domain="blinkit.com" href="https://www.google.com/search?q=site%3Ablinkit.com+groceries" target="_blank" rel="noopener">Search on Blinkit ↗</a></article>
+    <article class="card" data-category="grocery" data-name="JioMart"><div class="cardtop"><div class="icon">🛒</div><div><h3>JioMart</h3><div class="tag">Grocery & household</div></div></div><p>Look up pantry staples, cleaning products and household supplies.</p><a class="go store-link" data-domain="jiomart.com" href="https://www.google.com/search?q=site%3Ajiomart.com+groceries" target="_blank" rel="noopener">Search on JioMart ↗</a></article>
+    <article class="card" data-category="grocery" data-name="BigBasket"><div class="cardtop"><div class="icon">🥦</div><div><h3>BigBasket</h3><div class="tag">Groceries & fresh food</div></div></div><p>Compare grocery listings and pack sizes before you order.</p><a class="go store-link" data-domain="bigbasket.com" href="https://www.google.com/search?q=site%3Abigbasket.com+groceries" target="_blank" rel="noopener">Search on BigBasket ↗</a></article>
+    <article class="card" data-category="grocery" data-name="Zepto"><div class="cardtop"><div class="icon">🚀</div><div><h3>Zepto</h3><div class="tag">Quick commerce</div></div></div><p>Check whether the product is listed for your delivery location.</p><a class="go store-link" data-domain="zepto.com" href="https://www.google.com/search?q=site%3Azepto.com+groceries" target="_blank" rel="noopener">Search on Zepto ↗</a></article>
+    <article class="card" data-category="grocery" data-name="Swiggy Instamart"><div class="cardtop"><div class="icon">🛵</div><div><h3>Swiggy Instamart</h3><div class="tag">Daily essentials</div></div></div><p>Check local stock, offers and delivery fees in the app or website.</p><a class="go store-link" data-domain="swiggy.com/instamart" href="https://www.google.com/search?q=site%3Aswiggy.com%2Finstamart+groceries" target="_blank" rel="noopener">Search on Instamart ↗</a></article>
+    <article class="card" data-category="general" data-name="Amazon India"><div class="cardtop"><div class="icon">📦</div><div><h3>Amazon India</h3><div class="tag">Everyday products & more</div></div></div><p>Find product listings, variants, seller offers and pack sizes.</p><a class="go store-link" data-domain="amazon.in" href="https://www.google.com/search?q=site%3Aamazon.in+product" target="_blank" rel="noopener">Search on Amazon ↗</a></article>
+    <article class="card" data-category="general" data-name="Flipkart"><div class="cardtop"><div class="icon">🛍️</div><div><h3>Flipkart</h3><div class="tag">Shopping & deals</div></div></div><p>Search for products, deals and alternate sizes or models.</p><a class="go store-link" data-domain="flipkart.com" href="https://www.google.com/search?q=site%3Aflipkart.com+product" target="_blank" rel="noopener">Search on Flipkart ↗</a></article>
+    <article class="card" data-category="electronics" data-name="Croma"><div class="cardtop"><div class="icon">📱</div><div><h3>Croma</h3><div class="tag">Electronics & appliances</div></div></div><p>Check phones, laptops, accessories and home appliances.</p><a class="go store-link" data-domain="croma.com" href="https://www.google.com/search?q=site%3Acroma.com+electronics" target="_blank" rel="noopener">Search on Croma ↗</a></article>
+    <article class="card" data-category="fashion" data-name="Meesho"><div class="cardtop"><div class="icon">👕</div><div><h3>Meesho</h3><div class="tag">Fashion & home</div></div></div><p>Browse clothing, accessories and home items at different price points.</p><a class="go store-link" data-domain="meesho.com" href="https://www.google.com/search?q=site%3Ameesho.com+product" target="_blank" rel="noopener">Search on Meesho ↗</a></article>
+    <article class="card" data-category="general" data-name="Tata Neu"><div class="cardtop"><div class="icon">✳️</div><div><h3>Tata Neu</h3><div class="tag">Tata brands & offers</div></div></div><p>Look for eligible products and offers across participating Tata brands.</p><a class="go store-link" data-domain="tataneu.com" href="https://www.google.com/search?q=site%3Atataneu.com+product" target="_blank" rel="noopener">Search on Tata Neu ↗</a></article>
+  </div>
+  <div class="empty" id="emptyState">No stores in this category yet.</div>
+  <div class="notice"><div>⚠️</div><div><strong>Transparent pricing:</strong> This starter version opens store-specific searches; it does not yet pull verified live prices or guarantee stock. Prices, delivery fees, coupons and availability can vary by location. We won't show made-up prices.</div></div>
+</section>
+<section class="wrap section">
+  <div class="sectionhead"><div><h2>How PriceKhoj works</h2><p>A simple way to compare before you buy.</p></div></div>
+  <div class="howgrid">
+    <div class="step"><span class="num">01</span><b>Search a product</b><p>Type a product name and choose a store to search for it.</p></div>
+    <div class="step"><span class="num">02</span><b>Check matching details</b><p>Compare the same brand, size, model, seller, delivery fee and offer terms.</p></div>
+    <div class="step"><span class="num">03</span><b>Choose where to buy</b><p>Open the retailer's result and confirm the final checkout price before paying.</p></div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap footerrow"><div><strong style="color:var(--text)">PriceKhoj</strong> — a free price-search starter website.</div><div>Independent comparison helper; not affiliated with the listed retailers.</div></div></footer>
+<script>
+const input=document.getElementById('productInput');
+const form=document.getElementById('searchForm');
+const cards=[...document.querySelectorAll('.card')];
+const chips=[...document.querySelectorAll('.chip')];
+let activeFilter='all';
+function buildSearchUrl(domain, query){
+  const q = query.trim() ? query.trim() : 'product';
+  return 'https://www.google.com/search?q='+encodeURIComponent('site:'+domain+' '+q);
+}
+function updateLinks(){
+  const query=input.value.trim();
+  document.querySelectorAll('.store-link').forEach(link=>{
+    link.href=buildSearchUrl(link.dataset.domain,query);
+    const store=link.closest('.card').dataset.name;
+    link.textContent=(query ? 'Search "'+query+'" on '+store : 'Search on '+store)+' ↗';
+  });
+  document.getElementById('resultsTitle').textContent=query ? 'Search stores for “'+query+'”' : 'Shop by store';
+  document.getElementById('resultsSubtitle').textContent=query ? 'Open a store search to check current listings and prices.' : 'Grocery-first, with more categories included.';
+}
+function applyFilter(){
+  let visible=0;
+  cards.forEach(card=>{
+    const show=activeFilter==='all'||card.dataset.category===activeFilter;
+    card.style.display=show?'flex':'none';
+    if(show)visible++;
+  });
+  document.getElementById('emptyState').style.display=visible?'none':'block';
+}
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  updateLinks();
+  document.getElementById('stores').scrollIntoView({behavior:'smooth'});
+  if(!input.value.trim())input.focus();
+});
+input.addEventListener('input',updateLinks);
+chips.forEach(chip=>chip.addEventListener('click',()=>{
+  chips.forEach(c=>c.classList.toggle('active',c===chip));
+  activeFilter=chip.dataset.filter;
+  applyFilter();
+}));
+updateLinks();applyFilter();
+</script>
+</body>
+</html>
